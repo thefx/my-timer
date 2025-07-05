@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>20-минутный таймер</title>
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background: #f0f0f0;
+      font-family: sans-serif;
+    }
+    #timer {
+      background: #222;
+      color: #fff;
+      padding: 20px 40px;
+      border-radius: 10px;
+      font-size: 3rem;
+      letter-spacing: 2px;
+    }
+  </style>
+</head>
+<body>
+
+<div id="timer">20:00</div>
+
+<script>
+  // Общее время в секундах
+  let remaining = 20 * 60;
+
+  function updateTimer() {
+    const minutes = Math.floor(remaining / 60);
+    const seconds = remaining % 60;
+    const fmt = n => String(n).padStart(2, '0');
+    document.getElementById('timer').textContent = `${fmt(minutes)}:${fmt(seconds)}`;
+    
+    if (remaining <= 0) {
+      clearInterval(intervalId);
+      document.getElementById('timer').textContent = 'Время вышло!';
+    }
+    remaining--;
+  }
+
+  // Первый рендер
+  updateTimer();
+  // Обновляем каждую секунду
+  const intervalId = setInterval(updateTimer, 1000);
+</script>
+
+</body>
+</html>
